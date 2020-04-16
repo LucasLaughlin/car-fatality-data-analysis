@@ -1,0 +1,26 @@
+---
+title: "Regression (STAT3400) Final Project"
+output: html_document
+---
+```{r}
+library(ggplot2)
+library(tidyverse)
+```
+
+
+```{r}
+data = read.csv('data.csv')
+data
+```
+
+We will predict the severity of a crash using categorical predictors. 
+```{r}
+str(data)
+```
+
+```{r}
+f_data <- subset(data, select = -c(Astronomical_Twilight, Nautical_Twilight, Civil_Twilight))
+```
+
+
+
