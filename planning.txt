@@ -1,0 +1,99 @@
+Project requirements:
+
+
+Introduction/Background:
+
+-why are we interested?
+
+-what do people need to understand prior to reading the project, prior information/research?
+
+-where did the data come? how was it collected 
+
+-question of interest?
+
+VISIT: https://arxiv.org/abs/1906.05409
+<provides good information on why this data was collected, what makes it different>
+
+<one division of task here for next time>
+
+
+
+
+Methods/Results:
+
+-How was data obtained?
+
+-Summary and exploration of data:
+***
+
+-Appropiate analysises:
+***
+
+-Describe analysis, check assumptions"
+***
+
+-Relevant graphics
+
+*** = bulk of our project, using topics from class as well
+
+
+
+Conclusion:
+
+-what was learned, conclusions for data
+
+-how to improve design of study in future
+
+-how could research be extended
+
+
+
+___________________________________________________________________________________________________________________________
+
+
+
+
+What to take away from chapters:
+2: Estimation:
+-Demonstrate violation / lack of violation of ***Gauss-Markov*** assumptions, use standard mod and identify these assumptions 
+(errors are uncorrelated, equal variance, and expectated value of 0, normality and IID not an assumption)
+-Demonstrate how Least Squares works, match up result with result of lm(response~predictor) function
+
+3: Inference: 
+-Hypothesis tests
+-Permutation tests (finding best set of predictors?)
+-Conceptual discussion of confidence intervals
+
+
+4: Prediction:
+-dive into auto regressive models, since our accidents could be totally dependent on time of year
+
+6: Diagnostics:
+-Checking error assumptions, with constant variance, normality, correlated errors
+-Outliers and influential points
+
+
+8: Problems with Error:
+-GLS, WLS need
+
+<Discuss and choose where we have common knowledge in, what we think is most applicable with this project
+
+11:
+-recent material with shrinkage method and ridge regression
+
+Couldnt find specific chapter/His lecture slides:
+-ANOVA
+-F Test
+-Model Selection in general: Prev homework assignment
+
+Takeaways:
+-Division of tasks:
+---Opening part of project, Introduction/Background
+---Analysis piece: we can each take a concept and go in more depth on it, more so in class, apply it with our data, and explain
+in greater conceptual detail/clarity than Dr. O and the book do. This sort of research could lead to connections to other concepts
+and methods, and could drive the analysis piece of the project
+
+
+
+
+
