@@ -9,17 +9,20 @@ library(tidyverse)
 
 
 ```{r}
-data = read.csv('data.csv')
+data = read_csv('data.csv')
 data
 ```
 
-We will predict the severity of a crash using categorical predictors. 
-```{r}
-str(data)
-```
 
 ```{r}
-f_data <- subset(data, select = -c(Astronomical_Twilight, Nautical_Twilight, Civil_Twilight))
+tidy <- data %>%
+  separate(Start_Time, into = c("Start_Date", "Start_Time"), sep = " ") %>%
+  separate(End_Time, into = c("End_Date", "End_Time"), sep = " ") %>%
+  mutate(Total_Time = (data$End_Time - data$Start_Time)) %>%
+  select(-c(Astronomical_Twilight, Civil_Twilight, Nautical_Twilight, Source, TMC, Number, Airport_Code, Weather_Timestamp, Amenity, Bump, Crossing, Give_Way, Junction, No_Exit, Railway, Roundabout, Station, Stop, Traffic_Calming, Traffic_Signal, Turning_Loop, Street, Start_Lat, Start_Lng, End_Lat, End_Lng, End_Date, Start_Time, End_Time, Description)) %>%
+  drop_na(Severity) %>%
+  rename(Date = Start_Date)
+tidy
 ```
 
 
