@@ -2,3 +2,6 @@ https://www.kaggle.com/sobhanmoosavi/us-accidents
 
 https://smoosavi.org/datasets/us_accidents
 <information regarding data set and each variable>
+
+https://r4ds.had.co.nz/
+<Book about how to use tidyverse>
