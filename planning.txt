@@ -68,6 +68,7 @@ What to take away from chapters:
 4: Prediction:
 -dive into auto regressive models, since our accidents could be totally dependent on time of year
 
+
 6: Diagnostics:
 -Checking error assumptions, with constant variance, normality, correlated errors
 -Outliers and influential points
