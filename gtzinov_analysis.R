@@ -2,7 +2,9 @@ library(ggplot2)
 library(tidyverse)
 library(dplyr)
 library(tseries)
-
+library(lubridate)
+library(readr)
+library(forecast)
 
 data = read_csv("data.csv")
 
@@ -15,40 +17,41 @@ data <- data %>%
     drop_na(Severity) %>%
     rename(Date = Start_Date)
 
+data = na.omit(data)
+
 #Setting up for AR model: Variable of interest, number of severe accidents
 #with each day, where severe accident is defined by 'Severity > 3'
-AR_data <- filter(data, Severity > 3, Date > '2016')
+AR_data <- filter(data, Severity > 3)
 AR_data <- group_by(AR_data, Date) %>% summarize(n()) %>%
   rename(c("count" = "n()"))
 AR_data$Date <- as.Date(AR_data$Date)
 ggplot(data = AR_data, aes(x= Date, y = count)) + 
   geom_point() + geom_smooth()
 
-#doesn't look like theres any time series going on. From thinking intuitively, 
-#I don't like having all states all in one, as there will be lots of variance here
-#that will make results harder to see. Let's try narrowing by location. Also
-#through more trial and error, year 2016 and 2020 seem off and incomplete, so will remove those
+#It seems look like theres some time series going on.
+#Through more trial and error, year 2016 and 2020 seem off and inconsistent with 
+#the rest the other years based off number of data points, so will discard those.
 
-AR_data <- filter(data, Severity > 3, Date > '2017' & Date < '2020')
+AR_data <- filter(data, Severity > 3 & Date > '2017' & Date < '2019')
+
+#making month data set here for different time series model later
+AR_data_month = AR_data %>% mutate(Date = format(as.Date(Date), "%Y-%m"))
+AR_data_month = group_by(AR_data_month, Date) %>% summarize(n()) %>%
+  rename(c("count" = "n()"))
+
+
 AR_data <- group_by(AR_data, Date) %>% summarize(n()) %>%
   rename(c("count" = "n()"))
 AR_data$Date <- as.Date(AR_data$Date)
 ggplot(data = AR_data, aes(x= Date, y = count)) + 
-  geom_point() + geom_smooth()
-
-#More consistency in data with only using three full years, now lets filter location
-
-AR_data_Mountain <- filter(data, Severity > 3, Date > '2017' & Date < '2020' &
-                       (Timezone== 'US/Mountain'))
-AR_data_Mountain <- AR_data_Mountain %>% group_by(Date) %>% summarize(n()) %>%
-  rename(c("count" = "n()"))
-AR_data_Mountain$Date <- as.Date(AR_data_Mountain$Date)
-ggplot(data = AR_data_Mountain, aes(x= Date, y = count)) + 
   geom_point() + geom_smooth()
 
 #Will try time series analysis with filtered set 
-data.ts <- as.ts(AR_data_Mountain$count)
+data.ts <- as.ts(AR_data$count)
+
 plot.ts(data.ts)
+
+
 
 #Autoregressive models can be univariate or multivariate, where the latter 
 #includes other predictors in addition to previous time points
@@ -59,13 +62,18 @@ plot.ts(data.ts)
 #independent values, not correlated, values are not correlated with time
 
 adf.test(data.ts)
+
 #test shows that it is stationary, so no need to have differencing values to make stationary
-#deciding not to include parameters to include past error terms, but just past 
+
+#deciding not to include parameters to include past error terms (MA model) but just past 
 #y values
 
-pacf(data.ts)
-#Partial auto correlation function will help determine what to make the Order of the 
-#model, 
+pacf(data.ts, lag.max = 50)
+pacf(data.ts, lag.max = 15)
+
+
+#Partial auto correlation function will help determine what to make the order of the 
+#model, as it gives the strength of correlation certain lag values back
 
 #Finding actual model
 data.AR <- arima(data.ts, order = c(7,0,0))
@@ -74,13 +82,51 @@ fitted.AR <- data.ts - residuals.AR
 ts.plot(data.ts)
 points(fitted.AR, type =  "l", col = 2, lty = 2)
 
-  #However, since the correlation in the PCAF function indicate no values with
-#great siginifcance, this data perhaps isn't modeled well with an 
-#AR model.
+AIC(data.AR)
 
-ar(data.ts, TRUE)
+#Here, the order of 7 indicates 7 data points back, and hence using 7 days back.
+#This makes sense, as 7 days is one week, and using the past weeks accidents make sense
+#as weather follows a general pattern of 7 days, and perhaps one day of the week 
+#leads to more accidents (IE Monday being slow, Friday Saturday having more drunk 
+#drivers)
 
-summary(data.AR)
+
+#Predictions for 5 days after the end, so this case first five days of January 2019
+predict(data.AR, n.ahead = 3)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#predictions are off slightly, but not that bad. Let's try new model with months.
+monthData.ts = as.ts(AR_data_month$count)
+plot.ts(monthData.ts)
+adf.test(monthData.ts)
+pacf(monthData.ts)
+
+monthData.AR <- arima(monthData.ts, order = c(1,0,0))
+monthResiduals.AR <- residuals(monthData.AR)
+monthFitted.AR <- monthData.ts - monthResiduals.AR
+ts.plot(monthData.ts)
+points(monthFitted.AR, type =  "l", col = 2, lty = 2)
+
+
+
+#indicates lag value of 1
+#fit not great, 12th lag value has no correlation which doesn't make sense
+#since each December/January there's an increase of accidents, talked about in 
+#errors
+
 #Resource:
 #http://r-statistics.co/Time-Series-Analysis-With-R.html
 #https://people.duke.edu/~rnau/411arim.htm
