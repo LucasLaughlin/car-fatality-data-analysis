@@ -302,14 +302,3 @@ summary(model3)
 model4 = lm(Count ~ medianIncomeAve + popDensity, states)
 summary(model4)
 
-
-clean <- tidy%>%
-  sample_frac(0.0001) %>%
-  select(c(Severity, City, County, State, Zipcode))%>%
-  na.omit()
-clean
-nrow(clean)
-
-model1 = lm(Severity ~ City + County + State + Zipcode, clean)
-summary(model1)
-prcomp(model1, center=TRUE, scale. = TRUE)
