@@ -1,0 +1,55 @@
+,,,,
+Year,GDP-US $ billion nominal,Population-US million,Total Spending - Federal $ billion nominal,
+1990,5963.1,248.71,1252.99,a
+1991,6158.1,251.802,1324.23,a
+1992,6520.3,254.933,1381.53,a
+1993,6858.6,258.103,1409.39,a
+1994,7287.2,261.312,1461.75,a
+1995,7639.7,264.561,1515.74,a
+1996,8073.1,267.85,1560.48,a
+1997,8577.6,271.18,1601.12,a
+1998,9062.8,274.552,1652.46,a
+1999,9630.7,277.966,1701.84,a
+2000,10252.3,282.172,1788.95,a
+2001,10581.8,285.082,1862.85,a
+2002,10936.4,287.804,2010.89,a
+2003,11458.2,290.326,2159.9,a
+2004,12213.7,293.046,2292.84,a
+2005,13036.6,295.753,2471.96,a
+2006,13814.6,298.593,2655.05,a
+2007,14451.9,301.58,2728.69,a
+2008,14712.8,304.375,2982.54,a
+2009,14448.9,307.007,3517.68,a
+2010,14992.1,309.322,3457.08,a
+2011,15542.6,311.557,3603.06,a
+2012,16197,313.831,3526.56,a
+2013,16784.9,315.994,3454.88,a
+2014,17527.3,318.301,3506.28,a
+2015,18224.8,320.635,3691.85,a
+2016,18715,322.941,3852.62,a
+2017,19519.4,324.986,3981.63,a
+2018,20580.2,326.687,4109.04,a
+2019,21427.7,328.24,4448.32,a
+2020,22210.9,330.603,4789.75,b
+2021,23353.1,332.95,4829.36,b
+2022,24542.7,335.281,5005.42,b
+2023,25790.7,337.594,5105.33,b
+2024,27104.1,339.89,5208.46,b
+2025,28472.7,342.133,5450.78,b
+,,,,
+Legend:,,,,
+ a - actual reported,,,,
+ i - interpolated between actual reported values,,,,
+ e - estimated by usgovernmentspending.com,,,,
+ g - 'guesstimated' projection by usgovernmentspending.com,,,,
+ b - budgeted estimate in US FY21 budget,,,,
+Data Sources for 1990:,,,,
+"GDP, GO: ",https://usgovernmentspending.blogspot.com/search/label/usgdp,"GDP, GO Sources",,
+Federal: ,https://www.govinfo.gov/app/collection/budget/2021/BUDGET-2021-TAB,"Fed. Budget: Hist. Tables 3.2, 5.1, 7.1",,
+State and Local: ,https://www.census.gov/library/publications/time-series/statistical_abstracts.html,Statistical Abstracts of the United States,,
+,,,,
+Data Sources for 2025:,,,,
+"GDP, GO: ",https://usgovernmentspending.blogspot.com/search/label/usgdp,"GDP, GO Sources",,
+Federal: ,https://www.govinfo.gov/app/collection/budget/2021/BUDGET-2021-TAB,"Fed. Budget: Hist. Tables 3.2, 5.1, 7.1",,
+State and Local: ,https://www.census.gov/programs-surveys/gov-finances.html,State and Local Gov. Finances,,
+,https://usgovernmentspending.blogspot.com/2011/03/change-to-guesstimated-state-and-local.html,'Guesstimated', by projecting the latest change in reported spending forward to future years,
